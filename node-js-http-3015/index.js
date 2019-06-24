@@ -13,11 +13,19 @@ const server = http.createServer((req, res) => {
 			const fs = require('fs');
 			const rs = fs.createReadStream('./form.html');
 			rs.pipe(res);
-			res.write(pug.renderFile('./form.pug', {
-				path: req.url,
-				firstItem: '焼肉',
-				secondItem: 'しゃぶしゃぶ'
-			}));
+			if (req.url === '/enquetes/yaki-shabu') {
+				res.write(pug.renderFile('./form.pug', {
+					path: req.url,
+					firstItem: '焼肉',
+					secondItem: 'しゃぶしゃぶ'
+				}));
+			} else if (req.url === '/enquetes/rice-bread') {
+				res.write(pug.renderFile('./form.pug', {
+					path: req.url,
+					firstItem: 'ごはん',
+					secondItem: 'パン'
+				}));
+			}
 			res.end();
 			break;
 		case 'POST':
